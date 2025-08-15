@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.simple.notes.data.local.Note
 import com.simple.notes.databinding.ActivityMainBinding
 import com.simple.notes.ui.noteEdit.AddEditNoteActivity
 import com.simple.notes.ui.viewmodel.NoteViewModel
@@ -36,17 +37,25 @@ class MainActivity : AppCompatActivity() {
             startActivity(i)
         },
         onLongClick = {note ->
-            AlertDialog.Builder(binding.root.context)
-                .setTitle("Delete Note")
-                .setMessage("Are you sure you want to delete this note?")
-                .setPositiveButton("Delete") { _, _ ->
-                    vm.delete(note)
-                    Toast.makeText(this, "Note deleted", Toast.LENGTH_SHORT).show()
-                }
-                .setNegativeButton("Cancel", null)
-                .show()
+            showDeleteDialog(note)
         }
     )
+
+    private fun showDeleteDialog(note: Note) {
+        AlertDialog.Builder(binding.root.context)
+            .setTitle("Delete Note")
+            .setMessage("Are you sure you want to delete this note?")
+            .setPositiveButton("Delete") { _, _ ->
+                deleteNote(note)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun deleteNote(note: Note) {
+        vm.delete(note)
+        Toast.makeText(this, "Note deleted", Toast.LENGTH_SHORT).show()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
