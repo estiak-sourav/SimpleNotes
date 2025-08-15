@@ -43,6 +43,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/title"
             android:inputType="textCapSentences" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

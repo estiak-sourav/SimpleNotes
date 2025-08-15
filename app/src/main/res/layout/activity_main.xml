@@ -39,11 +39,11 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/add_note"
+        app:backgroundTint="@color/primary_color"
         app:layout_anchor="@id/recyclerView"
         app:layout_anchorGravity="bottom|end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:backgroundTint="@color/primary_color"
         app:srcCompat="@android:drawable/ic_input_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

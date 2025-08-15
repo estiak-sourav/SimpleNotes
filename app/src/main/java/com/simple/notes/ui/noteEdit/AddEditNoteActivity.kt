@@ -4,6 +4,7 @@ package com.simple.notes.ui.noteEdit
 import com.simple.notes.R
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -43,8 +44,10 @@ class AddEditNoteActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         currentId = intent.getIntExtra(EXTRA_NOTE_ID, -1).takeIf { it != -1 }
-        title = if (currentId == null) getString(R.string.add_note) else getString(R.string.edit_note)
-        binding.btnSave.text = if (currentId == null) getString(R.string.save) else getString(R.string.update)
+        title =
+            if (currentId == null) getString(R.string.add_note) else getString(R.string.edit_note)
+        binding.btnSave.text =
+            if (currentId == null) getString(R.string.save) else getString(R.string.update)
 
         currentId?.let { id ->
             CoroutineScope(Dispatchers.Main).launch {
@@ -57,6 +60,11 @@ class AddEditNoteActivity : AppCompatActivity() {
         }
 
         binding.btnSave.setOnClickListener { saveNote() }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId) {
+        android.R.id.home -> { finish(); true }
+        else -> super.onOptionsItemSelected(item)
     }
 
     private fun saveNote() {
