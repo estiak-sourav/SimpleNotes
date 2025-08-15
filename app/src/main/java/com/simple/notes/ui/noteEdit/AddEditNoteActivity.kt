@@ -4,8 +4,6 @@ package com.simple.notes.ui.noteEdit
 import com.simple.notes.R
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -46,6 +44,7 @@ class AddEditNoteActivity : AppCompatActivity() {
 
         currentId = intent.getIntExtra(EXTRA_NOTE_ID, -1).takeIf { it != -1 }
         title = if (currentId == null) getString(R.string.add_note) else getString(R.string.edit_note)
+        binding.btnSave.text = if (currentId == null) getString(R.string.save) else getString(R.string.update)
 
         currentId?.let { id ->
             CoroutineScope(Dispatchers.Main).launch {
@@ -56,17 +55,8 @@ class AddEditNoteActivity : AppCompatActivity() {
                 }
             }
         }
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_add_edit, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId) {
-        android.R.id.home -> { finish(); true }
-        R.id.action_save -> { saveNote(); true }
-        else -> super.onOptionsItemSelected(item)
+        binding.btnSave.setOnClickListener { saveNote() }
     }
 
     private fun saveNote() {
