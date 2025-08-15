@@ -11,7 +11,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class NoteListAdapter(
-    private val onClick: (Note) -> Unit
+    private val onClick: (Note) -> Unit,
+    private val onLongClick: (Note) -> Unit
 ) : ListAdapter<Note, NoteListAdapter.VH>(NoteDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
@@ -28,6 +29,7 @@ class NoteListAdapter(
             val sdf = SimpleDateFormat("MMM d, yyyy • HH:mm", Locale.getDefault())
             binding.tvDate.text = sdf.format(Date(note.updatedAt))
             binding.root.setOnClickListener { onClick(note) }
+            binding.root.setOnLongClickListener { onLongClick(note); true}
         }
     }
 }

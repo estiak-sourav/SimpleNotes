@@ -7,8 +7,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.ViewCompat
@@ -32,6 +34,17 @@ class MainActivity : AppCompatActivity() {
             val i = Intent(this, AddEditNoteActivity::class.java)
             i.putExtra(AddEditNoteActivity.EXTRA_NOTE_ID, note.id)
             startActivity(i)
+        },
+        onLongClick = {note ->
+            AlertDialog.Builder(binding.root.context)
+                .setTitle("Delete Note")
+                .setMessage("Are you sure you want to delete this note?")
+                .setPositiveButton("Delete") { _, _ ->
+                    vm.delete(note)
+                    Toast.makeText(this, "Note deleted", Toast.LENGTH_SHORT).show()
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
         }
     )
 
