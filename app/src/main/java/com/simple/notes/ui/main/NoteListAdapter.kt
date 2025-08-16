@@ -26,7 +26,7 @@ class NoteListAdapter(
         fun bind(note: Note) {
             binding.tvTitle.text = note.title
             binding.tvDesc.text = note.description
-            val sdf = SimpleDateFormat("MMM d, yyyy • HH:mm", Locale.getDefault())
+            val sdf = SimpleDateFormat("MMM d, yyyy • HH:mm a", Locale.getDefault())
             binding.tvDate.text = sdf.format(Date(note.updatedAt))
             binding.root.setOnClickListener { onClick(note) }
             binding.root.setOnLongClickListener { onLongClick(note); true}
